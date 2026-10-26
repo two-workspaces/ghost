@@ -1,0 +1,149 @@
+{
+  "buckets": {},
+  "services": {
+    "04ef42c4-51c5-4e33-b513-c4d2ebd2baed": {
+      "icon": "https://raw.githubusercontent.com/two-workspaces/ghost/main/icon.svg",
+      "name": "Ghost",
+      "build": {
+        "dockerfilePath": "Dockerfile"
+      },
+      "deploy": {
+        "startCommand": null,
+        "healthcheckPath": "/ghost/api/admin/site/",
+        "healthcheckTimeout": 600,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/two-workspaces/ghost",
+        "rootDirectory": null
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>": {}
+        }
+      },
+      "volumeMounts": {
+        "50d7354e-1bd9-4163-98ac-4cc53c7b6098": {
+          "mountPath": "/var/lib/ghost/content"
+        }
+      },
+      "variables": {
+        "GHOST_ADMIN_EMAIL": {
+          "defaultValue": "",
+          "description": "Email for the owner account, created on first boot. You sign in to /ghost with it.",
+          "isOptional": false
+        },
+        "GHOST_ADMIN_PASSWORD": {
+          "defaultValue": "${{secret(24, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Password for the owner account, generated at deploy time. Used once on first boot; change it in Ghost afterwards.",
+          "isOptional": false
+        },
+        "GHOST_SITE_TITLE": {
+          "defaultValue": "My Ghost Site",
+          "description": "Site title set on first boot. Change it later in Settings.",
+          "isOptional": false
+        },
+        "url": {
+          "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Public URL of the site. Change it after adding a custom domain.",
+          "isOptional": false
+        },
+        "database__client": {
+          "defaultValue": "mysql",
+          "description": "Ghost's database driver - leave as is.",
+          "isOptional": false
+        },
+        "database__connection__host": {
+          "defaultValue": "${{MySQL.RAILWAY_PRIVATE_DOMAIN}}",
+          "description": "MySQL host (private network)",
+          "isOptional": false
+        },
+        "database__connection__port": {
+          "defaultValue": "3306",
+          "description": "MySQL port",
+          "isOptional": false
+        },
+        "database__connection__user": {
+          "defaultValue": "${{MySQL.MYSQL_USER}}",
+          "description": "MySQL user",
+          "isOptional": false
+        },
+        "database__connection__password": {
+          "defaultValue": "${{MySQL.MYSQL_PASSWORD}}",
+          "description": "MySQL password",
+          "isOptional": false
+        },
+        "database__connection__database": {
+          "defaultValue": "${{MySQL.MYSQL_DATABASE}}",
+          "description": "MySQL database",
+          "isOptional": false
+        },
+        "security__staffDeviceVerification": {
+          "defaultValue": "false",
+          "description": "Email code on sign-in from a new device. Needs working email; set to true once SMTP is configured.",
+          "isOptional": false
+        },
+        "logging__transports": {
+          "defaultValue": "[\"stdout\"]",
+          "description": "Log to stdout so Railway shows Ghost's logs - leave as is.",
+          "isOptional": false
+        },
+        "PORT": {
+          "defaultValue": "2368",
+          "description": "Port Ghost listens on - leave as is.",
+          "isOptional": false
+        }
+      }
+    },
+    "cffeee9b-eafa-4a33-85b8-37b87659086e": {
+      "icon": "https://www.mysql.com/common/logos/logo-mysql-170x115.png",
+      "name": "MySQL",
+      "build": {},
+      "deploy": {
+        "startCommand": "docker-entrypoint.sh mysqld --datadir=/var/lib/mysql/data --performance-schema=OFF --skip-log-bin --innodb-buffer-pool-size=64M",
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "mysql:8.4.13"
+      },
+      "networking": {
+        "serviceDomains": {}
+      },
+      "volumeMounts": {
+        "3f1f793b-f241-4fd0-aad2-51243c8afcdc": {
+          "mountPath": "/var/lib/mysql"
+        }
+      },
+      "variables": {
+        "MYSQL_DATABASE": {
+          "defaultValue": "ghost",
+          "description": "Database name",
+          "isOptional": false
+        },
+        "MYSQL_USER": {
+          "defaultValue": "ghost",
+          "description": "Database user",
+          "isOptional": false
+        },
+        "MYSQL_PASSWORD": {
+          "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+          "description": "Auto-generated database password",
+          "isOptional": false
+        },
+        "MYSQL_RANDOM_ROOT_PASSWORD": {
+          "defaultValue": "1",
+          "description": "Root gets a random password; Ghost uses its own user - leave as is.",
+          "isOptional": false
+        },
+        "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+          "defaultValue": "60",
+          "description": "Time for MySQL to shut down cleanly on redeploy",
+          "isOptional": false
+        }
+      }
+    }
+  }
+}

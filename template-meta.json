@@ -1,0 +1,8 @@
+{
+  "name": "Ghost | Publishing, Newsletters and Paid Memberships with MySQL",
+  "short_name": "Ghost Publishing",
+  "description": "Ghost 6 blog and newsletter on MySQL, owner account ready on first boot",
+  "category": "Blogs",
+  "image": "https://raw.githubusercontent.com/two-workspaces/ghost/main/icon.svg",
+  "card_desc": "Ghost: a publishing platform for blogs, newsletters and paid memberships. Runs Ghost 6.72.0 on its own MySQL, with the owner account created on first boot."
+}
