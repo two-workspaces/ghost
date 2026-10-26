@@ -5,5 +5,6 @@
   "category": "Blogs",
   "image": "https://raw.githubusercontent.com/two-workspaces/ghost/main/icon.svg",
   "card_desc": "Ghost: a publishing platform for blogs, newsletters and paid memberships. Runs Ghost 6.72.0 on its own MySQL, with the owner account created on first boot.",
-  "id": "edd8764f-bf0e-412c-a19f-4a1d1ffdd8c2"
+  "id": "edd8764f-bf0e-412c-a19f-4a1d1ffdd8c2",
+  "published": true
 }
