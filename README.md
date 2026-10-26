@@ -37,7 +37,7 @@ The stack is two services: Ghost and MySQL.
 
 ### Implementation Details
 
-**Sign in.** Enter your email in `GHOST_ADMIN_EMAIL` when you deploy. When the deploy is green, open `https://<your domain>/ghost` and sign in with that email and the password in the Ghost service's `GHOST_ADMIN_PASSWORD` variable. Change it in Ghost afterwards (your avatar, Your profile, Change password); the variable isn't used again. The deploy logs show `[railway-setup] owner account created` once the account exists.
+**Sign in.** Enter your email in `GHOST_ADMIN_EMAIL` when you deploy. When the deploy is green, open `https://<your domain>/ghost` and sign in with that email and the password in the Ghost service's `GHOST_ADMIN_PASSWORD` variable. Change it in Ghost afterwards (your avatar, Your profile, Change password); the variable isn't used again. The deploy logs show `[railway-setup] owner account created` once the account exists. Without SMTP, the `Failed to send email` error that follows is Ghost's welcome email and is harmless.
 
 **Email.** Ghost sends two kinds of email:
 
@@ -56,7 +56,7 @@ The stack is two services: Ghost and MySQL.
 
 **Back up.** MySQL holds posts, members and settings, and the Ghost volume holds images and themes. Ghost can also export content and members as JSON and CSV under Settings, Advanced.
 
-**Resources.** A fresh deploy uses about 200 MB of RAM for Ghost and about 400 MB for MySQL. The first boot takes a minute or two while MySQL initializes and Ghost creates its tables.
+**Resources.** A fresh deploy uses about 220 MB of RAM for Ghost and about 280 MB for MySQL, so about 0.5 GB in total. The first boot takes a minute or two while MySQL initializes and Ghost creates its tables.
 
 ## Why Deploy Ghost on Railway?
 
