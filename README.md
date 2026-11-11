@@ -2,13 +2,13 @@
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/ghost-publishing?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=ghost-publishing)
 
-[Ghost](https://ghost.org/) is an open-source publishing platform for blogs, newsletters and paid memberships. You write in a clean editor, publish to a fast themeable site, send posts as email newsletters, and sell subscriptions through Stripe, all from one admin. This template runs Ghost 6.72.0 from the official image on its own MySQL 8.4. The owner account is created on first boot, so the `/ghost` setup page is never left open on a public URL.
+[Ghost](https://ghost.org/) is an open-source publishing platform for blogs, newsletters and paid memberships. You write in a clean editor, publish to a fast themeable site, send posts as email newsletters, and sell subscriptions through Stripe, all from one admin. This template runs Ghost 6.75.0 from the official image on its own MySQL 8.4. The owner account is created on first boot, so the `/ghost` setup page is never left open on a public URL.
 
 ## About Hosting Ghost
 
 The stack is two services: Ghost and MySQL.
 
-- **Upstream's image, pinned.** Ghost runs the official `ghost` image at a fixed release (6.72.0), not `latest`. A thin wrapper ([source](https://github.com/two-workspaces/ghost)) adds three small scripts and changes nothing else in Ghost. Upgrading means bumping the tag.
+- **Upstream's image, pinned.** Ghost runs the official `ghost` image at a fixed release (6.75.0), not `latest`. A thin wrapper ([source](https://github.com/two-workspaces/ghost)) adds three small scripts and changes nothing else in Ghost. Upgrading means bumping the tag.
 - **Owner account ready on first boot.** A fresh Ghost hands its setup page to whoever opens `/ghost` first, and on a public Railway domain that could be anyone. Here a small script waits for Ghost to start and creates the owner account from `GHOST_ADMIN_EMAIL` and the generated `GHOST_ADMIN_PASSWORD`. On later boots it does nothing.
 - **MySQL 8.4, the database Ghost supports in production.** Posts, members, settings and newsletters live in MySQL on a volume. Ghost waits for MySQL to accept connections before it starts, so the first deploy doesn't crash-loop while the database initializes, and it runs its migrations on every start.
 - **Images and themes on a volume.** Uploaded images, files and themes are kept in Ghost's content directory on its own volume, so they survive redeploys.
